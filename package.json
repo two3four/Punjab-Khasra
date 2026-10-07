@@ -1,0 +1,6 @@
+{
+  "name": "punjab-khasra",
+  "private": true,
+  "description": "Punjab cadastral (khasra) map explorer",
+  "engines": { "node": ">=18" }
+}
