@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Punjab Cadastral Explorer</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">Punjab Cadastral Explorer</div>
+  <div class="hdr-status" id="hdrStatus">Connecting…</div>
+</header>
+<main>
+  <aside>
+    <nav class="tabs">
+      <button class="tab active" data-tab="explore">Explore</button>
+      <button class="tab" data-tab="dashboard">Dashboard</button>
+      <button class="tab" data-tab="sync">Auto-sync</button>
+    </nav>
+
+    <section class="panel active" id="tab-explore">
+      <div class="sel-grid">
+        <label>Division<select id="selDivision"><option value="">Select division</option></select></label>
+        <label>District<select id="selDistrict" disabled><option value="">Select district</option></select></label>
+        <label>Tehsil<select id="selTehsil" disabled><option value="">Select tehsil</option></select></label>
+        <label>Mauza<select id="selMauza" disabled><option value="">Select mauza</option></select></label>
+      </div>
+      <div class="btn-row">
+        <button id="btnLoadMauza" class="primary" disabled>Load mauza</button>
+        <button id="btnShowTehsil" disabled title="Draw every saved mauza of this tehsil">Show saved tehsil</button>
+        <button id="btnCacheTehsil" disabled title="Download and save every mauza of this tehsil">Save whole tehsil</button>
+      </div>
+      <div class="msg" id="exploreMsg"></div>
+
+      <div class="tiles" id="selTiles"></div>
+
+      <div class="block">
+        <h3>Find khasra</h3>
+        <div class="search">
+          <input id="searchBox" placeholder="Khasra label (e.g. 10/6), Khasra ID or Khewat ID">
+          <button id="btnSearch">Search</button>
+        </div>
+        <div id="searchResults" class="results"></div>
+      </div>
+
+      <div class="block">
+        <h3>Export</h3>
+        <div class="btn-row">
+          <select id="exportScope"><option value="mauza">This mauza</option><option value="tehsil">Whole tehsil (saved)</option></select>
+          <button data-fmt="shp" class="exp">SHP</button>
+          <button data-fmt="geojson" class="exp">GeoJSON</button>
+          <button data-fmt="csv" class="exp">CSV</button>
+        </div>
+      </div>
+
+      <div class="block" id="parcelBlock" hidden>
+        <h3>Selected parcel</h3>
+        <table class="attrs" id="parcelAttrs"></table>
+      </div>
+    </section>
+
+    <section class="panel" id="tab-dashboard">
+      <div class="tiles" id="dashTiles"></div>
+      <div class="block">
+        <h3>Saved tehsils</h3>
+        <table class="grid" id="tehsilTable"></table>
+      </div>
+      <div class="block">
+        <h3>Recent changes on the server</h3>
+        <p class="hint">Parcels added, edited or removed since the previous download.</p>
+        <table class="grid" id="changesTable"></table>
+      </div>
+    </section>
+
+    <section class="panel" id="tab-sync">
+      <div class="tiles" id="syncTiles"></div>
+      <div class="btn-row">
+        <button id="btnSyncNow" class="primary">Refresh all saved now</button>
+      </div>
+      <p class="hint">Mauzas you open are saved in this browser. Any saved mauza older than 24 hours is downloaded again automatically while this page is open, and changes are logged on the Dashboard.</p>
+      <div class="btn-row"><button id="btnClear">Clear saved data</button></div>
+      <div class="block">
+        <h3>Jobs</h3>
+        <div id="jobsList"></div>
+      </div>
+      <div class="block">
+        <h3>Storage</h3>
+        <div class="hint" id="storageInfo"></div>
+      </div>
+    </section>
+    <footer class="attrib">Cadastral data: Punjab Land Records Authority / PULSE (lis.pulse.gop.pk). Unofficial viewer — not a legal record.</footer>
+  </aside>
+  <div id="map"></div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
