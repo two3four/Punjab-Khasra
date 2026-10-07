@@ -25,7 +25,7 @@ A web map of the Punjab cadastral (khasra) parcels shown on [lis.pulse.gop.pk](h
 2. Framework preset: **Other**. Leave build settings empty (`vercel.json` sets `public/` as the output folder).
 3. Click **Deploy**.
 
-Functions run in the Mumbai region (`bom1`), the closest to Pakistan.
+Functions run in Vercel's default region (`iad1`). Don't pin them to Mumbai (`bom1`): outbound requests from there timed out in testing. Open `/api/diag` to check that the functions can reach PULSE and the GIS server.
 
 | Path | What it does |
 |---|---|
